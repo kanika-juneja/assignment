@@ -110,7 +110,7 @@ public class CalculateRelativeAccountBalance {
 				}
 			}
 
-			// Used CANADA currency now for dollar representation. Can be changed later.
+			// Used CANADA currency now for dollar representation. Can be changed to AUD by defining the currency locale later.
 			NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(Locale.CANADA);
 			log.info("Relative balance for the period is : {}", currencyFormat.format(relativeAccountBalance));
 			log.info("Number of transactions included is : {}", filteredTxns.size());
