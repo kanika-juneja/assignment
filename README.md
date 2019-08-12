@@ -44,7 +44,7 @@ After the code is run, it will ask for 3 inputs one by one as below-
 
 
 # Output
-The output of the application will be displayed in console as below, where XX.XX N are amount is Dollars and Number of transactions considered respectively.
+The output of the application will be displayed in console as below, where "XX.XX" and "N" are amount in Dollars and Number of transactions considered respectively.
 
 1. Relative balance for the period is : ±$XX.XX
 2. Number of transactions included is : N
