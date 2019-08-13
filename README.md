@@ -39,8 +39,8 @@ mvn exec:java
 ```
 After the code is run, it will ask for 3 inputs one by one as below- 
 1) Enter the account number for which the relative amount is to be calculated:
-2) Enter the fromDate in yyyy-MM-dd HH:mm:ss format :
-3) Enter the toDate in yyyy-MM-dd HH:mm:ss format :
+2) Enter the fromDate in dd/MM/yyyy HH:mm:ss format :
+3) Enter the toDate in dd/MM/yyyy HH:mm:ss format :
 
 
 # Output
