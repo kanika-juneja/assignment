@@ -41,11 +41,11 @@ public class CalculateRelativeAccountBalance {
 			System.out.print("Enter the account number for which the relative amount is to be calculated : ");
 			transactionId = reader.readLine();
 
-			System.out.print("Enter the fromDate in yyyy-MM-dd HH:mm:ss format : ");
+			System.out.print("Enter the fromDate in dd/MM/yyyy HH:mm:ss format : ");
 			String fromDateString = reader.readLine();
 			fromDate = DateUtil.getDateTimeFromString(fromDateString);
 
-			System.out.print("Enter the toDate in yyyy-MM-dd HH:mm:ss format : ");
+			System.out.print("Enter the toDate in dd/MM/yyyy HH:mm:ss format : ");
 			String toDateString = reader.readLine();
 			toDate = DateUtil.getDateTimeFromString(toDateString);
 
