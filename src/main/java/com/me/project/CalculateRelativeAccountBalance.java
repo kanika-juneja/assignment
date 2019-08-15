@@ -1,4 +1,4 @@
-package com.meProject;
+package com.me.project;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -7,7 +7,6 @@ import java.io.InputStreamReader;
 import java.text.NumberFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Currency;
 import java.util.List;
 import java.util.Locale;
 import java.util.Set;
@@ -18,9 +17,9 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.meProject.constants.MeConstants;
-import com.meProject.domain.Transaction;
-import com.meProject.util.DateUtil;
+import com.me.project.constants.MeConstants;
+import com.me.project.domain.Transaction;
+import com.me.project.util.DateUtil;
 import com.opencsv.bean.CsvToBeanBuilder;
 
 /**

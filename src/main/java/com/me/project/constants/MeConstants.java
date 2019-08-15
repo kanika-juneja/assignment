@@ -1,4 +1,4 @@
-package com.meProject.constants;
+package com.me.project.constants;
 
 /**
  * @author Kanika 

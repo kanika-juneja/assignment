@@ -1,4 +1,4 @@
-package com.meProject.domain;
+package com.me.project.domain;
 
 import com.opencsv.bean.CsvBindByName;
 
