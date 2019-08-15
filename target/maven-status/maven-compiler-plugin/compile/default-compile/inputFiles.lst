@@ -1,4 +1,5 @@
 /Users/suri/JavaWorkarea/meproject/src/main/java/com/me/project/constants/MeConstants.java
+/Users/suri/JavaWorkarea/meproject/src/main/java/com/me/project/service/CalculateRelativeAccountBalanceService.java
 /Users/suri/JavaWorkarea/meproject/src/main/java/com/me/project/util/DateUtil.java
-/Users/suri/JavaWorkarea/meproject/src/main/java/com/me/project/CalculateRelativeAccountBalance.java
+/Users/suri/JavaWorkarea/meproject/src/main/java/com/me/project/app/CalculateRelativeAccountBalance.java
 /Users/suri/JavaWorkarea/meproject/src/main/java/com/me/project/domain/Transaction.java

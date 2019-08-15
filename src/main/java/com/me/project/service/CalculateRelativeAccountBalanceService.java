@@ -1,9 +1,7 @@
-package com.me.project;
+package com.me.project.service;
 
-import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.text.NumberFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -17,52 +15,25 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.me.project.app.CalculateRelativeAccountBalance;
 import com.me.project.constants.MeConstants;
 import com.me.project.domain.Transaction;
 import com.me.project.util.DateUtil;
 import com.opencsv.bean.CsvToBeanBuilder;
 
 /**
- * @author Kanika 
- * Class to calculate relative account balance
+ * @author Kanika
+ * Service class containing the logic for calculating relative account balance
  */
-public class CalculateRelativeAccountBalance {
-
+public class CalculateRelativeAccountBalanceService {
+	
 	private static final Logger log = LoggerFactory.getLogger(CalculateRelativeAccountBalance.class);
-
-	public static void main(String[] args) {
-		String transactionId = null;
-		LocalDateTime fromDate = null;
-		LocalDateTime toDate = null;
-
-		// Read inputs from cosole
-		try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
-			System.out.print("Enter the account number for which the relative amount is to be calculated : ");
-			transactionId = reader.readLine();
-
-			System.out.print("Enter the fromDate in dd/MM/yyyy HH:mm:ss format : ");
-			String fromDateString = reader.readLine();
-			fromDate = DateUtil.getDateTimeFromString(fromDateString);
-
-			System.out.print("Enter the toDate in dd/MM/yyyy HH:mm:ss format : ");
-			String toDateString = reader.readLine();
-			toDate = DateUtil.getDateTimeFromString(toDateString);
-
-			List<Transaction> transactions = readTransactionCsv();
-			calculateRelativeAccountbalance(transactions, transactionId, fromDate, toDate);
-
-		} catch (Exception e) {
-			log.error("Some error occurred : {}", e.getMessage());
-			//Printed the error to see stack trace, can be removed
-			e.printStackTrace();
-		}
-	}
 
 	/**
 	 * Method to read and parse csv file.
 	 * @return List<Transaction> transactions
 	 */
-	private static List<Transaction> readTransactionCsv() throws IOException {
+	public static List<Transaction> readTransactionCsv() throws IOException {
 		List<Transaction> transactions = new ArrayList<>();
 		transactions = new CsvToBeanBuilder<Transaction>(new FileReader(MeConstants.SAMPLE_CSV_FILE_PATH))
 				.withType(Transaction.class).build().parse();
@@ -76,13 +47,12 @@ public class CalculateRelativeAccountBalance {
 	 * @param fromDate
 	 * @param toDate
 	 */
-	private static void calculateRelativeAccountbalance(List<Transaction> transactions, String accountNumber,
+	public static void calculateRelativeAccountbalance(List<Transaction> transactions, String accountNumber,
 			LocalDateTime fromDate, LocalDateTime toDate) throws Exception {
 
 		Double relativeAccountBalance = 0.0D;
 
 		if (CollectionUtils.isNotEmpty(transactions) && null != accountNumber && null != fromDate && null != toDate) {
-			// Filter transactions list for the input account number and dates
 			List<Transaction> filteredTxns = transactions.stream()
 					.filter(txn -> (accountNumber.equalsIgnoreCase(txn.getFromAccountId().trim())
 							|| accountNumber.equalsIgnoreCase(txn.getToAccountId().trim()))
@@ -93,12 +63,10 @@ public class CalculateRelativeAccountBalance {
 							&& (MeConstants.PAYMENT_TRANSACTION_TYPE.equalsIgnoreCase(txn.getTransactionType())))
 					.collect(Collectors.toList());
 
-			// Fetch reversal transaction ids
 			Set<String> reversalTxnIds = transactions.stream().filter(
 					txn -> (null != txn.getRelatedTransaction() && StringUtils.isNotEmpty(txn.getRelatedTransaction())))
 					.map(Transaction::getRelatedTransaction).collect(Collectors.toSet());
 
-			// Ignore/remove the Reversal transactions from the filtered list.
 			filteredTxns.removeIf(txn -> reversalTxnIds.contains(txn.getTransactionId()));
 
 			for (Transaction t : filteredTxns) {
@@ -109,7 +77,6 @@ public class CalculateRelativeAccountBalance {
 				}
 			}
 
-			// Used CANADA currency now for dollar representation. Can be changed to AUD by defining the currency locale later.
 			NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(Locale.CANADA);
 			log.info("Relative balance for the period is : {}", currencyFormat.format(relativeAccountBalance));
 			log.info("Number of transactions included is : {}", filteredTxns.size());

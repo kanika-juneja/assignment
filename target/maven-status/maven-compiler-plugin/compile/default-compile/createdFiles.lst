@@ -1,4 +1,5 @@
 com/me/project/constants/MeConstants.class
 com/me/project/domain/Transaction.class
-com/me/project/CalculateRelativeAccountBalance.class
+com/me/project/service/CalculateRelativeAccountBalanceService.class
 com/me/project/util/DateUtil.class
+com/me/project/app/CalculateRelativeAccountBalance.class
