@@ -52,7 +52,7 @@ public class CalculateRelativeAccountBalanceService {
 
 		Double relativeAccountBalance = 0.0D;
 
-		if (CollectionUtils.isNotEmpty(transactions) && null != accountNumber && null != fromDate && null != toDate) {
+		if (CollectionUtils.isNotEmpty(transactions) && null != accountNumber) {
 			List<Transaction> filteredTxns = transactions.stream()
 					.filter(txn -> (accountNumber.equalsIgnoreCase(txn.getFromAccountId().trim())
 							|| accountNumber.equalsIgnoreCase(txn.getToAccountId().trim()))
@@ -64,7 +64,7 @@ public class CalculateRelativeAccountBalanceService {
 					.collect(Collectors.toList());
 
 			Set<String> reversalTxnIds = transactions.stream().filter(
-					txn -> (null != txn.getRelatedTransaction() && StringUtils.isNotEmpty(txn.getRelatedTransaction())))
+					txn -> (StringUtils.isNotEmpty(txn.getRelatedTransaction())))
 					.map(Transaction::getRelatedTransaction).collect(Collectors.toSet());
 
 			filteredTxns.removeIf(txn -> reversalTxnIds.contains(txn.getTransactionId()));
@@ -81,7 +81,8 @@ public class CalculateRelativeAccountBalanceService {
 			log.info("Relative balance for the period is : {}", currencyFormat.format(relativeAccountBalance));
 			log.info("Number of transactions included is : {}", filteredTxns.size());
 		} else {
-			log.info("Either the transactions list is empty, account number is null, from date is null or to date is null.");
+			log.info("Either the transactions list is empty or account number is null. Transactions : {} Account Number : {}",
+					transactions,accountNumber);
 		}
 	}
 }
